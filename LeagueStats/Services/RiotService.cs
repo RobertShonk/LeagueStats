@@ -29,12 +29,6 @@ namespace LeagueStats.Services {
             string url = SUMMONER_URL + summonerName + "?api_key=" + API_KEY;
             Summoner summoner = null;
 
-            /*HttpResponseMessage response = await _client.GetAsync(url);
-            if (response.IsSuccessStatusCode)
-            {
-                summoner = await response.Content.ReadAsAsync<Summoner>();
-            }*/
-
             try
             {
 
@@ -57,12 +51,6 @@ namespace LeagueStats.Services {
             string url = LEAGUE_URL + id + "?api_key=" + API_KEY;
             List<League> leagues = null;
 
-            /*HttpResponseMessage response = await _client.GetAsync(url);
-            if (response.IsSuccessStatusCode)
-            {
-                leagues = await response.Content.ReadAsAsync<List<League>>();
-            }*/
-
             try
             {
                 HttpResponseMessage response = await _client.GetAsync(url);
@@ -83,12 +71,6 @@ namespace LeagueStats.Services {
         {
             string url = MATCHids_URL + puuid + "/ids?start=0&count=20&api_key=" + API_KEY;
             List<string> matchIds = null;
-
-            /*HttpResponseMessage response = await _client.GetAsync(url);
-            if (response.IsSuccessStatusCode)
-            {
-                matchIds = await response.Content.ReadAsAsync<List<string>>();
-            }*/
 
             try
             {
@@ -113,13 +95,6 @@ namespace LeagueStats.Services {
 
             foreach (string matchId in matchIds)
             {
-                /*response = await _client.GetAsync(MATCH_URL + matchId + "?api_key=" + API_KEY);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    match = await response.Content.ReadAsAsync<Match>();
-                    matches.Add(match);
-                }*/
 
                 try
                 {
