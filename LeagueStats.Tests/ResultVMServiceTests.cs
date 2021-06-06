@@ -19,7 +19,8 @@ namespace LeagueStats.Tests {
             string expected = expectedUrl;
 
             // Act
-            ResultVMService.SetUserSummonerSpellsUrls(match);
+            ResultVMService rvmService = new ResultVMService();
+            rvmService.SetUserSummonerSpellsUrls(match);
 
             // Assert
             Assert.Equal(match.Summoner1ImageUrl, expected);

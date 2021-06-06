@@ -46,14 +46,6 @@ namespace LeagueStats.Controllers {
                 vm.Matches = await _riotService.GetMatchesAsync(vm.MatchIds);
             }
 
-            /* 
-               This loops through each list of participants in each match
-               and determines which one is the client's.
-               Then it determines img urls for their
-               champion played, summoner spells, runes, and items used.
-               Everything is saved to each match object's properties that are specific for
-               the user and separates their data from all other participants.
-            */
             _resultVMService.SetUserMatchInfo(vm.Matches, vm.Summoner.Name);
 
             return View(vm);

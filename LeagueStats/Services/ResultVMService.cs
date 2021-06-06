@@ -28,7 +28,7 @@ namespace LeagueStats.Services {
             }
         }
 
-        public static void SetUserSummonerSpellsUrls(Match match)
+        public void SetUserSummonerSpellsUrls(Match match)
         {
             if (match.Summoner1Id == 1)
             {
@@ -129,7 +129,7 @@ namespace LeagueStats.Services {
                 match.Summoner2ImageUrl = "/images/spell/LuluE.png";
             }
         }
-        public static void SetUserItemsUrls(Match match, Participant participant)
+        public void SetUserItemsUrls(Match match, Participant participant)
         {
             match.Item0 = participant.Item0;
             match.Item1 = participant.Item1;
