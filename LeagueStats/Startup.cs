@@ -25,6 +25,7 @@ namespace LeagueStats {
             services.AddControllersWithViews();
             services.AddHttpClient();
             services.AddSingleton<IRiotService, RiotService>();
+            services.AddScoped<IResultVMService, ResultVMService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
