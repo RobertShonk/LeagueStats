@@ -47,6 +47,7 @@ namespace LeagueStats.Controllers {
             }
 
             _resultVMService.SetUserMatchInfo(vm.Matches, vm.Summoner.Name);
+            vm.RankedSoloDuoIndex = _resultVMService.GetRankedSoloIndex(vm.Leagues);
 
             return View(vm);
         }

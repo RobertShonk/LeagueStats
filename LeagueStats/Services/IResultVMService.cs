@@ -9,5 +9,6 @@ namespace LeagueStats.Services {
         void SetUserMatchInfo(List<Match> matches, string summonerName);
         void SetUserSummonerSpellsUrls(Match match);
         void SetUserItemsUrls(Match match, Participant participant);
+        int GetRankedSoloIndex(List<League> leagues);
     }
 }

@@ -139,6 +139,15 @@ namespace LeagueStats.Services {
             match.ItemUrlList.Add("/images/item/" + participant.Item5 + ".png");
             match.ItemUrlList.Add("/images/item/" + participant.Item6 + ".png");
         }
+        public int GetRankedSoloIndex(List<League> leagues)
+        {
+            if (leagues[0].QueueType == "RANKED_SOLO_DUO")
+            {
+                return 0;
+            }
+
+            return 1;
+        }
 
     }
 }
