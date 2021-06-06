@@ -6,15 +6,6 @@
     string tempChampIconUrl = "";
     string championIconUrl = "/images/champion/";
 
-    string itemUrl = "/images/item/";
-    string tempItem0Url = "";
-    string tempItem1Url = "";
-    string tempItem2Url = "";
-    string tempItem3Url = "";
-    string tempItem4Url = "";
-    string tempItem5Url = "";
-    string tempItem6Url = "";
-
     string[] playerChampIconUrls = new string[10];
 
 }
@@ -67,13 +58,6 @@
             @foreach(var match in Model.Matches)
             {
                 tempChampIconUrl = championIconUrl + match.SummonersChampionName + ".png";
-                tempItem0Url = itemUrl + match.Item0 + ".png";
-                tempItem1Url = itemUrl + match.Item1 + ".png";
-                tempItem2Url = itemUrl + match.Item2 + ".png";
-                tempItem3Url = itemUrl + match.Item3 + ".png";
-                tempItem4Url = itemUrl + match.Item4 + ".png";
-                tempItem5Url = itemUrl + match.Item5 + ".png";
-                tempItem6Url = itemUrl + match.Item6 + ".png";
 
                 for (int i = 0; i < match.Info.Participants.Count(); i++)
                 {
@@ -139,21 +123,21 @@
 
                             <div class="col-2" id="items">
                                 <div class="row items">
-                                    <img class="img items" id="item1" src=@tempItem0Url>
-                                    <img class="img items" id="item2" src=@tempItem1Url>
-                                    <img class="img items" id="item3" src=@tempItem2Url>
+                                    <img class="img items" id="item1" src=@match.ItemUrlList[0]>
+                                    <img class="img items" id="item2" src=@match.ItemUrlList[1]>
+                                    <img class="img items" id="item3" src=@match.ItemUrlList[2]>
                                 </div>
 
                                 <div class="row items" id="bottomitems">
-                                    <img class="img items" id="item4" src=@tempItem3Url>
-                                    <img class="img items" id="item5" src=@tempItem4Url>
-                                    <img class="img items" id="item6" src=@tempItem5Url>
+                                    <img class="img items" id="item4" src=@match.ItemUrlList[3]>
+                                    <img class="img items" id="item5" src=@match.ItemUrlList[4]>
+                                    <img class="img items" id="item6" src=@match.ItemUrlList[5]>
                                 </div>
 
                                 <div class="row perks">
-                                    <img class="img perks" id="item1" src=@tempItem6Url>
-                                    <img class="img perks" id="item2" src=@tempItem6Url>
-                                    <img class="img perks" id="item3" src=@tempItem6Url>
+                                    <img class="img perks" id="item1" src=@match.ItemUrlList[6]>
+                                    <img class="img perks" id="item2" src=@match.ItemUrlList[6]>
+                                    <img class="img perks" id="item3" src=@match.ItemUrlList[6]>
                                 </div>
 
                             </div>

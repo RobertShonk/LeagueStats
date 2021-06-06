@@ -131,13 +131,13 @@ namespace LeagueStats.Services {
         }
         public void SetUserItemsUrls(Match match, Participant participant)
         {
-            match.Item0 = participant.Item0;
-            match.Item1 = participant.Item1;
-            match.Item2 = participant.Item2;
-            match.Item3 = participant.Item3;
-            match.Item4 = participant.Item4;
-            match.Item5 = participant.Item5;
-            match.Item6 = participant.Item6;
+            match.ItemUrlList.Add("/images/item/" + participant.Item0 + ".png");
+            match.ItemUrlList.Add("/images/item/" + participant.Item1 + ".png");
+            match.ItemUrlList.Add("/images/item/" + participant.Item2 + ".png");
+            match.ItemUrlList.Add("/images/item/" + participant.Item3 + ".png");
+            match.ItemUrlList.Add("/images/item/" + participant.Item4 + ".png");
+            match.ItemUrlList.Add("/images/item/" + participant.Item5 + ".png");
+            match.ItemUrlList.Add("/images/item/" + participant.Item6 + ".png");
         }
 
     }
