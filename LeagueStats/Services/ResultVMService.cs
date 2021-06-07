@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using LeagueStats.Models;
 
 namespace LeagueStats.Services {
     public class ResultVMService : IResultVMService {
+
         public void SetUserMatchInfo(List<Match> matches, string summonerName)
         {
             foreach (var match in matches)
@@ -31,6 +33,14 @@ namespace LeagueStats.Services {
                         // save summoner spell names to vm for img src in view
                         SetUserSummonerSpellsUrls(match);
                         SetUserItemsUrls(match, participant);
+
+                        // Deserialize runesReforged.json and send object to GetPerkUrl for MatchPerkUrls.
+                        string json = System.IO.File.ReadAllText(@"C:\Users\rshon\source\repos\LeagueStats\LeagueStats\App_Data\runesReforged.json");
+
+                        dynamic runesReforged = JsonConvert.DeserializeObject<List<PrimaryRune>>(json);
+                        // Perks
+                        match.Perk1Url = GetPerkUrl(runesReforged, participant, 0);
+                        match.Perk2Url = GetPerkUrl(runesReforged, participant, 1);
 
                         match.KillParticipation = (CalcKillParticipation(CalcTotalTeamKills(match.Info.Participants, match.TeamId), participant))*100;
                         match.KillParticipation = Math.Ceiling(match.KillParticipation);
@@ -185,5 +195,37 @@ namespace LeagueStats.Services {
             return (double)(participant.Kills + participant.Assists) / (double)totalTeamKills;
         }
 
+        public string GetPerkUrl(List<PrimaryRune> primaryRunes, Participant participant, int index)
+        {
+            PrimaryRune rune = new PrimaryRune();
+            string url = "";
+            if (participant.Perks.Styles[index].Description == "primaryStyle")
+            {
+                //rune = primaryRunes.FirstOrDefault(r => r.Id == participant.Perks.Styles[0].Selections[0].Perk);
+                //rune = primaryRunes.Where(r => r.Id == participant.Perks.Styles[0].Selections[0].Perk).FirstOrDefault();
+                foreach (PrimaryRune r in primaryRunes)
+                {
+                    foreach (var slotR in r.Slots)
+                    {
+                        foreach (var runeS in slotR.Runes)
+                        {
+                            if (runeS.Id == participant.Perks.Styles[0].Selections[0].Perk)
+                            {
+                                url = runeS.Icon;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                rune = primaryRunes.FirstOrDefault(r => r.Id == participant.Perks.Styles[1].StyleNumber);
+                url = rune.Icon;
+                //rune = primaryRunes.Where(r => r.Id == participant.Perks.Styles[1].StyleNumber).FirstOrDefault();
+            }
+
+            return "/images/" + url;
+        }
     }
 }

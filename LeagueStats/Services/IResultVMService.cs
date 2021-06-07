@@ -12,5 +12,6 @@ namespace LeagueStats.Services {
         int GetRankedSoloIndex(List<League> leagues);
         int CalcTotalTeamKills(List<Participant> participants, int teamId);
         double CalcKillParticipation(int totalTeamKills, Participant participant);
+        string GetPerkUrl(List<PrimaryRune> primaryRunes, Participant participant, int index);
     }
 }

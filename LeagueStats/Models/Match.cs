@@ -22,6 +22,8 @@ namespace LeagueStats.Models {
         public int Summoner2Id { get; set; }
         public string Summoner1ImageUrl { get; set; }
         public string Summoner2ImageUrl { get; set; }
+        public string Perk1Url { get; set; }
+        public string Perk2Url { get; set; }
 
         public List<string> ItemUrlList = new List<string>();
         public string GameDuration { get; set; }

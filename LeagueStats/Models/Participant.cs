@@ -53,7 +53,7 @@ namespace LeagueStats.Models {
         public int ObjectivesStolenAssists { get; set; }
         public int ParticipantId { get; set; }
         public int PentaKills { get; set; }
-        public Perk Perk { get; set; }
+        public Perk Perks { get; set; }
         public long PhysicalDamageDealt { get; set; }
         public long PhysicalDamageDealtToChampions { get; set; }
         public long PhysicalDamageTaken { get; set; }
