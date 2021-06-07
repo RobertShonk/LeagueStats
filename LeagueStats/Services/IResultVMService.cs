@@ -10,5 +10,7 @@ namespace LeagueStats.Services {
         void SetUserSummonerSpellsUrls(Match match);
         void SetUserItemsUrls(Match match, Participant participant);
         int GetRankedSoloIndex(List<League> leagues);
+        int CalcTotalTeamKills(List<Participant> participants, int teamId);
+        double CalcKillParticipation(int totalTeamKills, Participant participant);
     }
 }

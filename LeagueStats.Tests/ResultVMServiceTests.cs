@@ -25,5 +25,42 @@ namespace LeagueStats.Tests {
             // Assert
             Assert.Equal(match.Summoner1ImageUrl, expected);
         }
+
+        [Fact]
+        public void CalcTotalTeamKills_ShouldEqualSix()
+        {
+            // Arrange
+            int teamId = 100;
+            List<Participant> participants = new List<Participant>() {
+                new Participant() { Kills = 2, TeamId = 100 },
+                new Participant() { Kills = 2, TeamId = 100 },
+                new Participant() { Kills = 2, TeamId = 200 },
+                new Participant() { Kills = 2, TeamId = 200 },
+                new Participant() { Kills = 2, TeamId = 100 }
+            };
+
+            int expected = 6;
+
+            // Act
+            ResultVMService rvmService = new ResultVMService();
+            int actual = rvmService.CalcTotalTeamKills(participants, teamId);
+
+            // Assert
+            Assert.Equal(actual, expected);
+        }
+
+        [Fact]
+        public void CalcKillParticipation_ShouldEqualGivenKP()
+        {
+            int totalTeamKills = 39;
+            Participant participant = new Participant() { Kills = 6, Assists = 19 };
+            double expected = (double)(participant.Kills + participant.Assists) / (double)totalTeamKills;
+
+            ResultVMService rvmService = new ResultVMService();
+            double actual = rvmService.CalcKillParticipation(totalTeamKills, participant);
+
+            Assert.Equal(actual, expected);
+
+        }
     }
 }

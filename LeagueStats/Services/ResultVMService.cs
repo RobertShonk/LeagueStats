@@ -15,12 +15,20 @@ namespace LeagueStats.Services {
                     if (participant.SummonerName == summonerName)
                     {
                         match.SummonersChampionName = participant.ChampionName;
+                        match.TeamId = participant.TeamId;
                         match.Win = participant.Win;
+                        match.Kills = participant.Kills;
+                        match.Deaths = participant.Deaths;
+                        match.Assists = participant.Assists;
+                        match.TotalMinionsKilled = participant.TotalMinionsKilled;
                         match.Summoner1Id = participant.Summoner1Id;
                         match.Summoner2Id = participant.Summoner2Id;
                         // save summoner spell names to vm for img src in view
                         SetUserSummonerSpellsUrls(match);
                         SetUserItemsUrls(match, participant);
+
+                        match.KillParticipation = (CalcKillParticipation(CalcTotalTeamKills(match.Info.Participants, match.TeamId), participant))*100;
+                        match.KillParticipation = Math.Ceiling(match.KillParticipation);
 
                         break;
                     }
@@ -147,6 +155,29 @@ namespace LeagueStats.Services {
             }
 
             return 1;
+        }
+
+        // These take the total of ALL PLAYERS not just of one team. fix this...
+        // have to save users teamId number and use that to add up participants kills
+        // who have that id number.
+        public int CalcTotalTeamKills(List<Participant> participants, int teamId)
+        {
+            int totalKills = 0;
+
+            foreach (var participant in participants)
+            {
+                if (participant.TeamId == teamId)
+                {
+                    totalKills = totalKills + participant.Kills;
+                }              
+            }
+
+            return totalKills;
+        }
+
+        public double CalcKillParticipation(int totalTeamKills, Participant participant)
+        {
+            return (double)(participant.Kills + participant.Assists) / (double)totalTeamKills;
         }
 
     }

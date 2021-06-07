@@ -90,7 +90,6 @@ namespace LeagueStats.Services {
         public async Task<List<Match>> GetMatchesAsync(List<string> matchIds)
         {
             List<Match> matches = new List<Match>();
-            Match match = null;
             HttpResponseMessage response = null;
 
             foreach (string matchId in matchIds)
