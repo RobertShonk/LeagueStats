@@ -11,6 +11,10 @@ p {
     background-color: white;
 }
 
+.oneMatch {
+    background-color: indianred;
+}
+
 .row.match {
     padding-top: 15px;
     padding-bottom: 5px;
