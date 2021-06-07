@@ -48,6 +48,8 @@ namespace LeagueStats.Controllers {
 
             _resultVMService.SetUserMatchInfo(vm.Matches, vm.Summoner.Name);
             vm.RankedSoloDuoIndex = _resultVMService.GetRankedSoloIndex(vm.Leagues);
+            vm.WinRate = ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins / ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins + (double)vm.Leagues[vm.RankedSoloDuoIndex].Losses)) * 100;
+            vm.WinRate = Math.Ceiling(vm.WinRate);
 
             return View(vm);
         }

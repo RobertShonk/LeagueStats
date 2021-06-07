@@ -141,7 +141,7 @@ namespace LeagueStats.Services {
         }
         public int GetRankedSoloIndex(List<League> leagues)
         {
-            if (leagues[0].QueueType == "RANKED_SOLO_DUO")
+            if (leagues[0].QueueType == "RANKED_SOLO_5x5")
             {
                 return 0;
             }

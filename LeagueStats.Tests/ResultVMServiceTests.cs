@@ -25,6 +25,5 @@ namespace LeagueStats.Tests {
             // Assert
             Assert.Equal(match.Summoner1ImageUrl, expected);
         }
-
     }
 }
