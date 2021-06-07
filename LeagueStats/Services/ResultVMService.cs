@@ -23,6 +23,11 @@ namespace LeagueStats.Services {
                         match.TotalMinionsKilled = participant.TotalMinionsKilled;
                         match.Summoner1Id = participant.Summoner1Id;
                         match.Summoner2Id = participant.Summoner2Id;
+
+                        // convert match.Info.GameDuration to min:seconds format for viewmodel
+                        TimeSpan timeSpan = TimeSpan.FromMilliseconds(match.Info.GameDuration);
+                        match.GameDuration = string.Format("{0:D2}m:{1:D2}s", timeSpan.Minutes, timeSpan.Seconds);
+
                         // save summoner spell names to vm for img src in view
                         SetUserSummonerSpellsUrls(match);
                         SetUserItemsUrls(match, participant);

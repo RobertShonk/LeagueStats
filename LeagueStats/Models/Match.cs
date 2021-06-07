@@ -24,6 +24,7 @@ namespace LeagueStats.Models {
         public string Summoner2ImageUrl { get; set; }
 
         public List<string> ItemUrlList = new List<string>();
+        public string GameDuration { get; set; }
 
     }
 }
