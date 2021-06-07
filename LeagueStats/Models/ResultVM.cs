@@ -13,5 +13,6 @@ namespace LeagueStats.Models {
         // Sets the index of Ranked Solo/Duo in Leagues list.
         public int RankedSoloDuoIndex { get; set; }
         public double WinRate { get; set; }
+        public string RankedIconUrl { get; set; }
     }
 }

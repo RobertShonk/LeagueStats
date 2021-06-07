@@ -28,15 +28,10 @@
                     <strong>@Model.Leagues[0].SummonerName</strong>
                 </td>
                 <td rowspan="2">
-                    <img src="" width="100" class="img-thumbnail">
+                    <img src=@Model.RankedIconUrl width="100" class="img">
                 </td>
                 <td>
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-bs-toggle="dropdown" aria-expanded="false">@Model.Leagues[Model.RankedSoloDuoIndex].QueueType</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown05">
-                        <li><a class="dropdown-item" href="#">Solo/Duo</a></li>
-                        <li><a class="dropdown-item" href="#">Flex</a></li>
-                        <li><a class="dropdown-item" href="#">Clash</a></li>
-                    </ul>
+                    @Model.Leagues[Model.RankedSoloDuoIndex].QueueType
                 </td>
                 <td>
                     Wins: @Model.Leagues[Model.RankedSoloDuoIndex].Wins

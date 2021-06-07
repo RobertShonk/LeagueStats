@@ -50,6 +50,7 @@ namespace LeagueStats.Controllers {
             vm.RankedSoloDuoIndex = _resultVMService.GetRankedSoloIndex(vm.Leagues);
             vm.WinRate = ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins / ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins + (double)vm.Leagues[vm.RankedSoloDuoIndex].Losses)) * 100;
             vm.WinRate = Math.Ceiling(vm.WinRate);
+            vm.RankedIconUrl = "/images/ranked-emblems/Emblem_" + vm.Leagues[vm.RankedSoloDuoIndex].Tier + ".png";
 
             return View(vm);
         }
