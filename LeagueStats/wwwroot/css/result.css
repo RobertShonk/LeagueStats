@@ -7,12 +7,21 @@ p {
     padding-bottom: 0px;
 }
 
+/* uncomment to change table hover hover color back to bootstrap's default.
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: rgba(0, 0, 0, 0.075);
+}*/
+
 #center {
     background-color: white;
 }
 
-.oneMatch {
-    background-color: indianred;
+.oneMatchWin {
+    background-color: lightblue;
+}
+
+.oneMatchLoss {
+    background-color: #cea7a7;
 }
 
 .row.match {
