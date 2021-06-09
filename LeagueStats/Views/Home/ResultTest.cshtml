@@ -1,0 +1,118 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="/css/result.css" rel="stylesheet" />
+
+<form action="/Home/Result" method="post">
+    <input type="hidden" name="summonerName" />
+    <input type="hidden" name="update" value=true />
+    <input type="submit" value="Update" />
+</form>
+
+<!--Player info-->
+<div class="row">
+
+    <div class="col" id="center">
+
+        <table class="table table-borderless">
+            <tr>
+                <td rowspan="2">
+                    <img src="" width="100" class="img-thumbnail">
+                </td>
+                <td rowspan="2">
+                    <strong>hehe</strong>
+                </td>
+                <td rowspan="2">
+                    <img src="" width="100" class="img">
+                </td>
+                <td>
+                    QueueType
+                </td>
+                <td>
+                    Wins: Wins
+                </td>
+                <td>Losses: Losses</td>
+            </tr>
+            <tr>
+                <td>Tier Rank - LeaguePoints LP</td>
+                <td>Winrate: WinRate%</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="/Home/Result" method="post">
+                        <input type="hidden" name="summonerName" />
+                        <input type="hidden" name="update" value=true />
+                        <input type="submit" value="Update" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <h1>Recent 20 Matches</h1>
+
+        <!--Dynamic match table here...-->
+        <table class="table table-hover" id="matches">
+
+                <tr>
+                    <td>
+                        <div class="row match">
+
+                            <div class="col-1" id="matchinfo">
+                                <div class="row matchinfo">
+                                    
+                                </div>
+                                <div class="row matchinfo">
+                                    
+                                </div>
+                                <div class="row matchinfo">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-1 champion" id="champion">
+                                <div class="row">
+                                    
+                                </div>
+
+                                <div class="row">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-2" id="items">
+                                <div class="row items">
+                                    
+                                </div>
+
+                                <div class="row items" id="bottomitems">
+                                    
+                                </div>
+
+                                <div class="row perks">
+                                    
+                                </div>
+
+                            </div>
+
+                            <div class="col-2" id="kda">
+                                
+                            </div>
+
+                            <div class="col-6" id="teamtable">
+
+                                <div class="row teams">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+
+        </table>
+
+    </div>
+</div>

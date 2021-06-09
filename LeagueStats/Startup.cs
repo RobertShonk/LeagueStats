@@ -26,8 +26,10 @@ namespace LeagueStats {
         {
             services.AddControllersWithViews();
             services.AddHttpClient();
+
             services.AddSingleton<IRiotService, RiotService>();
             services.AddScoped<IResultVMService, ResultVMService>();
+            services.AddScoped<IDataService, DataService>();
 
             // Database (SqlServer)
             services.AddDbContext<LeagueStatsContext>(options =>

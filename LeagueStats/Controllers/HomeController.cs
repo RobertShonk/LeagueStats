@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LeagueStats.Models;
 using LeagueStats.Services;
+using LeagueStats.Data;
 
 namespace LeagueStats.Controllers {
     public class HomeController : Controller {
@@ -15,12 +16,14 @@ namespace LeagueStats.Controllers {
 
         private readonly IRiotService _riotService;
         private readonly IResultVMService _resultVMService;
+        private readonly LeagueStatsContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger, IRiotService riotService, IResultVMService resultVMService)
+        public HomeController(ILogger<HomeController> logger, IRiotService riotService, IResultVMService resultVMService, LeagueStatsContext dbContext)
         {
             _logger = logger;
             this._riotService = riotService;
             this._resultVMService = resultVMService;
+            this._dbContext = dbContext;
         }
 
         public IActionResult Index()
@@ -31,33 +34,69 @@ namespace LeagueStats.Controllers {
         // my stuff
         public async Task<IActionResult> Result(string summonerName, bool update)
         {
-            if (update)
+            if (_dbContext.Participants.Where(p => p.SummonerName == summonerName).Any() && update == false)
             {
-                return View("Update");
+                // If the user does exist in database, read user info
+                // and load viewmodel.
+
+                return View("SummonerExists");
             }
-
-            ResultVM vm = new ResultVM();
-            // -> GetSummoner -> GetLeague, GetMatchIds, GetMatches
-            vm.Summoner = await _riotService.GetSummonerAsync(summonerName);
-
-            if (vm.Summoner == null)
+            else if (update == true)
             {
-                return View("SummonerNotFound");
+                // If user hits update, use summonerName to call riotApi for relevant data
+                // and add to database.
+                return View("UpdateTrue");
             }
             else
             {
-                vm.Leagues = await _riotService.GetLeagueAsync(vm.Summoner.Id);
-                vm.MatchIds = await _riotService.GetMatchIdsAsync(vm.Summoner.Puuid);
-                vm.Matches = await _riotService.GetMatchesAsync(vm.MatchIds);
+                ResultVM vm = new ResultVM();
+                // -> GetSummoner -> GetLeague, GetMatchIds, GetMatches
+                vm.Summoner = await _riotService.GetSummonerAsync(summonerName);
+
+                if (vm.Summoner == null)
+                {
+                    return View("SummonerNotFound");
+                }
+                else
+                {
+                    vm.Leagues = await _riotService.GetLeagueAsync(vm.Summoner.Id);
+                    vm.MatchIds = await _riotService.GetMatchIdsAsync(vm.Summoner.Puuid);
+                    vm.Matches = await _riotService.GetMatchesAsync(vm.MatchIds);
+                }
+
+                _resultVMService.SetUserMatchInfo(vm.Matches, vm.Summoner.Name);
+                vm.RankedSoloDuoIndex = _resultVMService.GetRankedSoloIndex(vm.Leagues);
+                vm.WinRate = ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins / ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins + (double)vm.Leagues[vm.RankedSoloDuoIndex].Losses)) * 100;
+                vm.WinRate = Math.Ceiling(vm.WinRate);
+                vm.RankedIconUrl = "/images/ranked-emblems/Emblem_" + vm.Leagues[vm.RankedSoloDuoIndex].Tier + ".png";
+
+                return View(vm);
             }
+        }
 
-            _resultVMService.SetUserMatchInfo(vm.Matches, vm.Summoner.Name);
-            vm.RankedSoloDuoIndex = _resultVMService.GetRankedSoloIndex(vm.Leagues);
-            vm.WinRate = ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins / ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins + (double)vm.Leagues[vm.RankedSoloDuoIndex].Losses)) * 100;
-            vm.WinRate = Math.Ceiling(vm.WinRate);
-            vm.RankedIconUrl = "/images/ranked-emblems/Emblem_" + vm.Leagues[vm.RankedSoloDuoIndex].Tier + ".png";
+        public IActionResult ResultTest(string summonerName, bool update)
+        {
+            if (_dbContext.Participants.Where(p => p.SummonerName == summonerName).Any() && update == false)
+            {
+                // If the user does exist in database, read user info
+                // and load viewmodel.
 
-            return View(vm);
+                return View("SummonerExists");
+            }
+            else if (update == true)
+            {
+                // If user hits update, use summonerName to call riotApi for relevant data
+                // and add to database.
+                return View("UpdateTrue");
+            }
+            else
+            {
+                // If user doesn't exist and update is false then display
+                // basic webpage telling them to click update.
+                ViewBag.showContent = false;
+
+                return View();
+            }
         }
 
         public IActionResult SummonerNotFound()
