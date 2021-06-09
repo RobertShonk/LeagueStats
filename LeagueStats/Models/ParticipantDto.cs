@@ -2,7 +2,7 @@
 using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class Participant : ParticipantDto {
+    public class ParticipantDto : Participant {
 
     }
 }

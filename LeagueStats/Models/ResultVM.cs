@@ -8,7 +8,7 @@ namespace LeagueStats.Models {
         public Summoner Summoner { get; set; }
         public List<League> Leagues { get; set; }
         public List<string> MatchIds { get; set; }
-        public List<Match> Matches { get; set; }
+        public List<MatchDto> Matches { get; set; }
 
         // Sets the index of Ranked Solo/Duo in Leagues list.
         public int RankedSoloDuoIndex { get; set; }

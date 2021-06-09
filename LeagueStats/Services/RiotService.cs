@@ -87,9 +87,9 @@ namespace LeagueStats.Services {
             return matchIds;
         }
 
-        public async Task<List<Match>> GetMatchesAsync(List<string> matchIds)
+        public async Task<List<MatchDto>> GetMatchesAsync(List<string> matchIds)
         {
-            List<Match> matches = new List<Match>();
+            List<MatchDto> matches = new List<MatchDto>();
             HttpResponseMessage response = null;
 
             foreach (string matchId in matchIds)
@@ -100,7 +100,7 @@ namespace LeagueStats.Services {
                     response = await _client.GetAsync(MATCH_URL + matchId + "?api_key=" + API_KEY);
                     if (response.IsSuccessStatusCode)
                     {
-                        matches.Add(await response.Content.ReadAsAsync<Match>());
+                        matches.Add(await response.Content.ReadAsAsync<MatchDto>());
                     }
                 } catch (HttpRequestException e)
                 {

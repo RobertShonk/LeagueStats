@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeagueStats.Data.Entities {
-    public class ParticipantDto {
+    public class Participant {
         [Key]
         public int Id { get; set; }
         public int Assists { get; set; }
@@ -57,7 +57,7 @@ namespace LeagueStats.Data.Entities {
         public int ObjectivesStolenAssists { get; set; }
         public int ParticipantId { get; set; }
         public int PentaKills { get; set; }
-        public PerkDto Perks { get; set; }
+        public Perk Perks { get; set; }
         public long PhysicalDamageDealt { get; set; }
         public long PhysicalDamageDealtToChampions { get; set; }
         public long PhysicalDamageTaken { get; set; }

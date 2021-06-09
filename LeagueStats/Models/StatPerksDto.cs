@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class StatPerks : StatPerksDto {
+    public class StatPerksDto : StatPerks {
 
     }
 }

@@ -7,12 +7,12 @@ using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Services {
     public interface IResultVMService {
-        void SetUserMatchInfo(List<Match> matches, string summonerName);
-        void SetUserSummonerSpellsUrls(Match match);
-        void SetUserItemsUrls(Match match, ParticipantDto participant);
+        void SetUserMatchInfo(List<MatchDto> matches, string summonerName);
+        void SetUserSummonerSpellsUrls(MatchDto match);
+        void SetUserItemsUrls(MatchDto match, Participant participant);
         int GetRankedSoloIndex(List<League> leagues);
-        int CalcTotalTeamKills(List<ParticipantDto> participants, int teamId);
-        double CalcKillParticipation(int totalTeamKills, ParticipantDto participant);
-        string GetPerkUrl(List<PrimaryRune> primaryRunes, ParticipantDto participant, int index);
+        int CalcTotalTeamKills(List<Participant> participants, int teamId);
+        double CalcKillParticipation(int totalTeamKills, Participant participant);
+        string GetPerkUrl(List<PrimaryRune> primaryRunes, Participant participant, int index);
     }
 }

@@ -16,7 +16,7 @@ namespace LeagueStats.Tests {
         public void SetUserSummonerSpellsUrls_ShouldBeEqualToGivenUrl(int testId, string expectedUrl)
         {
             // Arrange
-            Match match = new Match() { Summoner1Id = testId };
+            Models.MatchDto match = new Models.MatchDto() { Summoner1Id = testId };
             string expected = expectedUrl;
 
             // Act
@@ -32,12 +32,12 @@ namespace LeagueStats.Tests {
         {
             // Arrange
             int teamId = 100;
-            List<ParticipantDto> participants = new List<ParticipantDto>() {
-                new Participant() { Kills = 2, TeamId = 100 },
-                new Participant() { Kills = 2, TeamId = 100 },
-                new Participant() { Kills = 2, TeamId = 200 },
-                new Participant() { Kills = 2, TeamId = 200 },
-                new Participant() { Kills = 2, TeamId = 100 }
+            List<Data.Entities.Participant> participants = new List<Data.Entities.Participant>() {
+                new Models.ParticipantDto() { Kills = 2, TeamId = 100 },
+                new Models.ParticipantDto() { Kills = 2, TeamId = 100 },
+                new Models.ParticipantDto() { Kills = 2, TeamId = 200 },
+                new Models.ParticipantDto() { Kills = 2, TeamId = 200 },
+                new Models.ParticipantDto() { Kills = 2, TeamId = 100 }
             };
 
             int expected = 6;
@@ -54,7 +54,7 @@ namespace LeagueStats.Tests {
         public void CalcKillParticipation_ShouldEqualGivenKP()
         {
             int totalTeamKills = 39;
-            Participant participant = new Participant() { Kills = 6, Assists = 19 };
+            Models.ParticipantDto participant = new Models.ParticipantDto() { Kills = 6, Assists = 19 };
             double expected = (double)(participant.Kills + participant.Assists) / (double)totalTeamKills;
 
             ResultVMService rvmService = new ResultVMService();

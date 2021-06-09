@@ -75,7 +75,7 @@ namespace LeagueStats.Controllers {
             }
         }
 
-        public IActionResult ResultTest(string summonerName, bool update)
+        public async Task<IActionResult> ResultTest(string summonerName, bool update)
         {
             if (_dataService.SummonerExists(summonerName) && update == false)
             {
@@ -88,13 +88,46 @@ namespace LeagueStats.Controllers {
             {
                 // If user hits update, use summonerName to call riotApi for relevant data
                 // and add to database.
-                return View("UpdateTrue");
+                ResultVM vm = new ResultVM();
+                // -> GetSummoner -> GetLeague, GetMatchIds, GetMatches
+                vm.Summoner = await _riotService.GetSummonerAsync(summonerName);
+
+                if (vm.Summoner == null)
+                {
+                    return View("SummonerNotFound");
+                }
+                else
+                {
+                    vm.Leagues = await _riotService.GetLeagueAsync(vm.Summoner.Id);
+                    vm.MatchIds = await _riotService.GetMatchIdsAsync(vm.Summoner.Puuid);
+                    vm.Matches = await _riotService.GetMatchesAsync(vm.MatchIds);
+                }
+
+                _resultVMService.SetUserMatchInfo(vm.Matches, vm.Summoner.Name);
+                vm.RankedSoloDuoIndex = _resultVMService.GetRankedSoloIndex(vm.Leagues);
+                vm.WinRate = ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins / ((double)vm.Leagues[vm.RankedSoloDuoIndex].Wins + (double)vm.Leagues[vm.RankedSoloDuoIndex].Losses)) * 100;
+                vm.WinRate = Math.Ceiling(vm.WinRate);
+                vm.RankedIconUrl = "/images/ranked-emblems/Emblem_" + vm.Leagues[vm.RankedSoloDuoIndex].Tier + ".png";
+                // ^^^ ViewModel is complete ^^^
+                // Now "give" Matches.Info and Matches.Metadata to MatchesDto
+                List<Data.Entities.Match> matchDtos = new List<Data.Entities.Match>();
+                foreach (var match in vm.Matches)
+                {
+                    matchDtos.Add(new Data.Entities.Match() { Info = match.Info, Metadata = match.Metadata });
+                }
+                // Add to database.
+                _dataService.AddMatches(matchDtos);
+                ViewBag.showContent = true;
+
+
+                return View(vm);
             }
             else
             {
                 // If user doesn't exist and update is false then display
                 // basic webpage telling them to click update.
                 ViewBag.showContent = false;
+                ViewBag.summonerName = summonerName;
 
                 return View();
             }

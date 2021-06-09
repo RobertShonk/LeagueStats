@@ -9,6 +9,6 @@ namespace LeagueStats.Services {
         Task<Summoner> GetSummonerAsync(string summonerName);
         Task<List<League>> GetLeagueAsync(string id);
         Task<List<string>> GetMatchIdsAsync(string puuid);
-        Task<List<Match>> GetMatchesAsync(List<string> matchIds);
+        Task<List<MatchDto>> GetMatchesAsync(List<string> matchIds);
     }
 }

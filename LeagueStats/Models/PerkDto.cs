@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using LeagueStats.Data.Entities;
 
+
+//Match.Info.List<Participant>.List<Perk>.
 namespace LeagueStats.Models {
-    public class Selection : SelectionDto {
+    public class PerkDto : Perk {
+
     }
 }

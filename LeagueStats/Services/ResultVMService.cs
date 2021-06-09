@@ -9,7 +9,7 @@ using LeagueStats.Data.Entities;
 namespace LeagueStats.Services {
     public class ResultVMService : IResultVMService {
 
-        public void SetUserMatchInfo(List<Match> matches, string summonerName)
+        public void SetUserMatchInfo(List<MatchDto> matches, string summonerName)
         {
             foreach (var match in matches)
             {
@@ -52,7 +52,7 @@ namespace LeagueStats.Services {
             }
         }
 
-        public void SetUserSummonerSpellsUrls(Match match)
+        public void SetUserSummonerSpellsUrls(MatchDto match)
         {
             if (match.Summoner1Id == 1)
             {
@@ -153,7 +153,7 @@ namespace LeagueStats.Services {
                 match.Summoner2ImageUrl = "/images/spell/LuluE.png";
             }
         }
-        public void SetUserItemsUrls(Match match, ParticipantDto participant)
+        public void SetUserItemsUrls(MatchDto match, Participant participant)
         {
             match.ItemUrlList.Add("/images/item/" + participant.Item0 + ".png");
             match.ItemUrlList.Add("/images/item/" + participant.Item1 + ".png");
@@ -176,7 +176,7 @@ namespace LeagueStats.Services {
         // These take the total of ALL PLAYERS not just of one team. fix this...
         // have to save users teamId number and use that to add up participants kills
         // who have that id number.
-        public int CalcTotalTeamKills(List<ParticipantDto> participants, int teamId)
+        public int CalcTotalTeamKills(List<Participant> participants, int teamId)
         {
             int totalKills = 0;
 
@@ -191,12 +191,12 @@ namespace LeagueStats.Services {
             return totalKills;
         }
 
-        public double CalcKillParticipation(int totalTeamKills, ParticipantDto participant)
+        public double CalcKillParticipation(int totalTeamKills, Participant participant)
         {
             return (double)(participant.Kills + participant.Assists) / (double)totalTeamKills;
         }
 
-        public string GetPerkUrl(List<PrimaryRune> primaryRunes, ParticipantDto participant, int index)
+        public string GetPerkUrl(List<PrimaryRune> primaryRunes, Participant participant, int index)
         {
             PrimaryRune rune = new PrimaryRune();
             string url = "";

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class Match : MatchDto {
+    public class MatchDto : Match {
 
         //User Specific info
         //Set these so user's matches can be displayed with their own info before sending to client.

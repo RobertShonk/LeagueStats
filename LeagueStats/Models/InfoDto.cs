@@ -2,7 +2,7 @@
 using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class Info : InfoDto {
+    public class InfoDto : Info {
         public List<Team> Teams { get; set; }
     }
 }

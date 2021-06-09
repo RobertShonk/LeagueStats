@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace LeagueStats.Data.Entities {
-    public class MetadataDto {
+    public class StatPerks {
         [Key]
-        public int MetadataId { get; set; }
-        public int DataVersion { get; set; }
-        public string MatchId { get; set; }
+        public int StatPerksId { get; set; }
+        public int Defense { get; set; }
+        public int Flex { get; set; }
+        public int Offense { get; set; }
     }
 }

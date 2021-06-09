@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace LeagueStats.Data.Entities {
-    public class InfoDto {
+    public class Info {
         [Key]
         public int InfoId { get; set; }
         public long GameCreation { get; set; }
@@ -17,7 +17,7 @@ namespace LeagueStats.Data.Entities {
         public string GameType { get; set; }
         public string GameVersion { get; set; }
         public int MapId { get; set; }
-        public List<ParticipantDto> Participants { get; set; }
+        public List<Participant> Participants { get; set; }
         public string PlatformId { get; set; }
         public int QueueId { get; set; }
     }

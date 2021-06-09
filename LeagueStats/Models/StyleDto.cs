@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using LeagueStats.Data.Entities;
 
-
-//Match.Info.List<Participant>.List<Perk>.
 namespace LeagueStats.Models {
-    public class Perk : PerkDto {
-
+    public class StyleDto : Style {
     }
 }

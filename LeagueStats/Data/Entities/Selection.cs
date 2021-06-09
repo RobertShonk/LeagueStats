@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace LeagueStats.Data.Entities {
-    public class SelectionDto {
+    public class Selection {
         [Key]
         public int SelectionId { get; set; }
         public int Perk { get; set; }

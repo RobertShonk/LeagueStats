@@ -1,118 +1,214 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model LeagueStats.Models.ResultVM;
 @{
+    ViewData["Title"] = "Result Page";
+
+    string profileIconUrl = "/images/profileicon/" + "683" + ".png";
+    string tempChampIconUrl = "";
+    string championIconUrl = "/images/champion/";
+
+    string[] playerChampIconUrls = new string[10];
+    string winLossClassName = "";
+
 }
 <link href="/css/result.css" rel="stylesheet" />
 
-<form action="/Home/Result" method="post">
-    <input type="hidden" name="summonerName" />
+<form action="/Home/ResultTest" method="get">
+    <input type="hidden" name="summonerName" value=@ViewBag.summonerName />
     <input type="hidden" name="update" value=true />
     <input type="submit" value="Update" />
 </form>
 
 <!--Player info-->
-<div class="row">
+@if (ViewBag.showContent)
+{
+    <div class="row">
 
-    <div class="col" id="center">
+        <div class="col" id="center">
 
-        <table class="table table-borderless">
-            <tr>
-                <td rowspan="2">
-                    <img src="" width="100" class="img-thumbnail">
-                </td>
-                <td rowspan="2">
-                    <strong>hehe</strong>
-                </td>
-                <td rowspan="2">
-                    <img src="" width="100" class="img">
-                </td>
-                <td>
-                    QueueType
-                </td>
-                <td>
-                    Wins: Wins
-                </td>
-                <td>Losses: Losses</td>
-            </tr>
-            <tr>
-                <td>Tier Rank - LeaguePoints LP</td>
-                <td>Winrate: WinRate%</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>
-                    <form action="/Home/Result" method="post">
-                        <input type="hidden" name="summonerName" />
-                        <input type="hidden" name="update" value=true />
-                        <input type="submit" value="Update" />
-                    </form>
-                </td>
-            </tr>
-        </table>
-
-        <h1>Recent 20 Matches</h1>
-
-        <!--Dynamic match table here...-->
-        <table class="table table-hover" id="matches">
-
+            <table class="table table-borderless">
+                <tr>
+                    <td rowspan="2">
+                        <img src="@profileIconUrl" width="100" class="img-thumbnail">
+                    </td>
+                    <td rowspan="2">
+                        <strong>@Model.Leagues[0].SummonerName</strong>
+                    </td>
+                    <td rowspan="2">
+                        <img src=@Model.RankedIconUrl width="100" class="img">
+                    </td>
+                    <td>
+                        @Model.Leagues[Model.RankedSoloDuoIndex].QueueType
+                    </td>
+                    <td>
+                        Wins: @Model.Leagues[Model.RankedSoloDuoIndex].Wins
+                    </td>
+                    <td>Losses: @Model.Leagues[Model.RankedSoloDuoIndex].Losses</td>
+                </tr>
+                <tr>
+                    <td>@Model.Leagues[Model.RankedSoloDuoIndex].Tier @Model.Leagues[Model.RankedSoloDuoIndex].Rank - @Model.Leagues[Model.RankedSoloDuoIndex].LeaguePoints LP</td>
+                    <td>Winrate: @Model.WinRate%</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>
-                        <div class="row match">
-
-                            <div class="col-1" id="matchinfo">
-                                <div class="row matchinfo">
-                                    
-                                </div>
-                                <div class="row matchinfo">
-                                    
-                                </div>
-                                <div class="row matchinfo">
-                                    
-                                </div>
-                            </div>
-
-                            <div class="col-1 champion" id="champion">
-                                <div class="row">
-                                    
-                                </div>
-
-                                <div class="row">
-                                    
-                                </div>
-                            </div>
-
-                            <div class="col-2" id="items">
-                                <div class="row items">
-                                    
-                                </div>
-
-                                <div class="row items" id="bottomitems">
-                                    
-                                </div>
-
-                                <div class="row perks">
-                                    
-                                </div>
-
-                            </div>
-
-                            <div class="col-2" id="kda">
-                                
-                            </div>
-
-                            <div class="col-6" id="teamtable">
-
-                                <div class="row teams">
-
-                                </div>
-                            </div>
-
-                        </div>
+                        <form action="/Home/Result" method="post">
+                            <input type="hidden" name="summonerName" value=@Model.Summoner.Name />
+                            <input type="hidden" name="update" value=true />
+                            <input type="submit" value="Update" />
+                        </form>
                     </td>
                 </tr>
+            </table>
 
-        </table>
+            <h1>Recent 20 Matches</h1>
 
+            <!--Dynamic match table here...-->
+            <table class="table table-hover" id="matches">
+
+                @foreach (var match in Model.Matches)
+                {
+                    tempChampIconUrl = championIconUrl + match.SummonersChampionName + ".png";
+
+                    for (int i = 0; i < match.Info.Participants.Count(); i++)
+                    {
+                        playerChampIconUrls[i] = championIconUrl + match.Info.Participants[i].ChampionName + ".png";
+                    }
+
+                    string gameMode = "";
+                    if (match.Info.QueueId == 400)
+                    {
+                        gameMode = "Normal";
+                    }
+                    else if (match.Info.QueueId == 420)
+                    {
+                        gameMode = "Ranked Solo/Duo";
+                    }
+                    else if (match.Info.QueueId == 430)
+                    {
+                        gameMode = "Blind";
+                    }
+                    else if (match.Info.QueueId == 440)
+                    {
+                        gameMode = "Ranked Flex";
+                    }
+                    else if (match.Info.QueueId == 450)
+                    {
+                        gameMode = "Aram";
+                    }
+                    else if (match.Info.QueueId == 700)
+                    {
+                        gameMode = "Clash";
+                    }
+                    else
+                    {
+                        gameMode = "Unknown";
+                    }
+
+                    if (match.Win == true)
+                    {
+                        winLossClassName = "oneMatchWin";
+                    }
+                    else
+                    {
+                        winLossClassName = "oneMatchLoss";
+                    }
+
+                    <tr class=@winLossClassName>
+                        <td>
+                            <div class="row match">
+
+                                <div class="col-1" id="matchinfo">
+                                    <div class="row matchinfo">
+                                        @gameMode
+                                    </div>
+                                    <div class="row matchinfo">
+                                        @if (match.Win == true)
+                                        {<text>Victory!</text> }
+                                    else
+                                    { <text>Defeat</text>}
+                                    </div>
+                                    <div class="row matchinfo">
+                                        @match.GameDuration
+                                    </div>
+                                </div>
+
+                                <div class="col-1 champion" id="champion">
+                                    <div class="row">
+                                        <img class="img champicon" id="champicon" src=@tempChampIconUrl>
+                                    </div>
+
+                                    <div class="row">
+                                        <img class="img summonericon" id="summoner1" src=@match.Summoner1ImageUrl>
+                                        <img class="img summonericon" id="summoner2" src=@match.Summoner2ImageUrl>
+                                    </div>
+                                </div>
+
+                                <div class="col-2" id="items">
+                                    <div class="row items">
+                                        <img class="img items" id="item1" src=@match.ItemUrlList[0]>
+                                        <img class="img items" id="item2" src=@match.ItemUrlList[1]>
+                                        <img class="img items" id="item3" src=@match.ItemUrlList[2]>
+                                    </div>
+
+                                    <div class="row items" id="bottomitems">
+                                        <img class="img items" id="item4" src=@match.ItemUrlList[3]>
+                                        <img class="img items" id="item5" src=@match.ItemUrlList[4]>
+                                        <img class="img items" id="item6" src=@match.ItemUrlList[5]>
+                                    </div>
+
+                                    <div class="row perks">
+                                        <img class="img perks" id="perk1" src=@match.Perk1Url>
+                                        <img class="img perks" id="perk2" src=@match.Perk2Url>
+                                        <img class="img perks" id="item3" src=@match.ItemUrlList[6]>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-2" id="kda">
+                                    <div class="row kda">
+                                        @match.Kills / @match.Deaths / @match.Assists
+                                    </div>
+                                    <div class="row kda">
+                                        @match.TotalMinionsKilled CS
+                                    </div>
+                                    <div class="row kda">
+                                        @match.KillParticipation% KP
+                                    </div>
+                                </div>
+
+                                <div class="col-6" id="teamtable">
+
+                                    <div class="row teams">
+
+                                        <div class="col">
+                                            <p><img class="img player" src=@playerChampIconUrls[0]>@match.Info.Participants[0].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[1]>@match.Info.Participants[1].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[2]>@match.Info.Participants[2].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[3]>@match.Info.Participants[3].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[4]>@match.Info.Participants[4].SummonerName</p>
+                                        </div>
+                                        <div class="col">
+                                            <p><img class="img player" src=@playerChampIconUrls[5]>@match.Info.Participants[5].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[6]>@match.Info.Participants[6].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[7]>@match.Info.Participants[7].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[8]>@match.Info.Participants[8].SummonerName</p>
+                                            <p><img class="img player" src=@playerChampIconUrls[9]>@match.Info.Participants[9].SummonerName</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
     </div>
-</div>
+}
+else
+{
+    <p>somethin ain't right...</p>
+}
