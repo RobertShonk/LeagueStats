@@ -12,13 +12,13 @@ namespace LeagueStats.Data {
 
         }
 
-        public DbSet<Match> Matches { get; set; }
-        public DbSet<Info> Infos { get; set; }
-        public DbSet<Metadata> Metadatas { get; set; }
-        public DbSet<Participant> Participants { get; set; }
-        public DbSet<Perk> Perks { get; set; }
-        public DbSet<Selection> Selections { get; set; }
-        public DbSet<StatPerks> StatPerks { get; set; }
-        public DbSet<Style> Styles { get; set; }
+        public DbSet<MatchDto> Matches { get; set; }
+        public DbSet<InfoDto> Infos { get; set; }
+        public DbSet<MetadataDto> Metadatas { get; set; }
+        public DbSet<ParticipantDto> Participants { get; set; }
+        public DbSet<PerkDto> Perks { get; set; }
+        public DbSet<SelectionDto> Selections { get; set; }
+        public DbSet<StatPerksDto> StatPerks { get; set; }
+        public DbSet<StyleDto> Styles { get; set; }
     }
 }

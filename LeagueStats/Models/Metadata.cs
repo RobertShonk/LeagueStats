@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class Metadata {
-        public int DataVersion { get; set; }
-        public string MatchId { get; set; }
+    public class Metadata : MetadataDto {
         public List<string> Participants { get; set; }
     }
 }

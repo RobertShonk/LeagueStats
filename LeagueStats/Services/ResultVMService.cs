@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
 using LeagueStats.Models;
+using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Services {
     public class ResultVMService : IResultVMService {
@@ -152,7 +153,7 @@ namespace LeagueStats.Services {
                 match.Summoner2ImageUrl = "/images/spell/LuluE.png";
             }
         }
-        public void SetUserItemsUrls(Match match, Participant participant)
+        public void SetUserItemsUrls(Match match, ParticipantDto participant)
         {
             match.ItemUrlList.Add("/images/item/" + participant.Item0 + ".png");
             match.ItemUrlList.Add("/images/item/" + participant.Item1 + ".png");
@@ -175,7 +176,7 @@ namespace LeagueStats.Services {
         // These take the total of ALL PLAYERS not just of one team. fix this...
         // have to save users teamId number and use that to add up participants kills
         // who have that id number.
-        public int CalcTotalTeamKills(List<Participant> participants, int teamId)
+        public int CalcTotalTeamKills(List<ParticipantDto> participants, int teamId)
         {
             int totalKills = 0;
 
@@ -190,12 +191,12 @@ namespace LeagueStats.Services {
             return totalKills;
         }
 
-        public double CalcKillParticipation(int totalTeamKills, Participant participant)
+        public double CalcKillParticipation(int totalTeamKills, ParticipantDto participant)
         {
             return (double)(participant.Kills + participant.Assists) / (double)totalTeamKills;
         }
 
-        public string GetPerkUrl(List<PrimaryRune> primaryRunes, Participant participant, int index)
+        public string GetPerkUrl(List<PrimaryRune> primaryRunes, ParticipantDto participant, int index)
         {
             PrimaryRune rune = new PrimaryRune();
             string url = "";

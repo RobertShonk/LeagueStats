@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using LeagueStats.Services;
 using LeagueStats.Models;
+using LeagueStats.Data.Entities;
 using Xunit;
 
 namespace LeagueStats.Tests {
@@ -31,7 +32,7 @@ namespace LeagueStats.Tests {
         {
             // Arrange
             int teamId = 100;
-            List<Participant> participants = new List<Participant>() {
+            List<ParticipantDto> participants = new List<ParticipantDto>() {
                 new Participant() { Kills = 2, TeamId = 100 },
                 new Participant() { Kills = 2, TeamId = 100 },
                 new Participant() { Kills = 2, TeamId = 200 },

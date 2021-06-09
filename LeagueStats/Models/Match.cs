@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class Match {
-        public Metadata Metadata { get; set; }
-        public Info Info { get; set; }
+    public class Match : MatchDto {
 
         //User Specific info
         //Set these so user's matches can be displayed with their own info before sending to client.

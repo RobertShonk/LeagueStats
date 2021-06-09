@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class Selection {
-        public int Perk { get; set; }
-        public int Var1 { get; set; }
-        public int Var2 { get; set; }
-        public int Var3 { get; set; }
+    public class Selection : SelectionDto {
     }
 }

@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LeagueStats.Data.Entities;
 
 namespace LeagueStats.Models {
-    public class StatPerks {
-        public int Defense { get; set; }
-        public int Flex { get; set; }
-        public int Offense { get; set; }
+    public class StatPerks : StatPerksDto {
 
     }
 }

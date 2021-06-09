@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using LeagueStats.Models;
+using LeagueStats.Data.Entities;
 using LeagueStats.Services;
 using LeagueStats.Data;
 
@@ -16,14 +17,14 @@ namespace LeagueStats.Controllers {
 
         private readonly IRiotService _riotService;
         private readonly IResultVMService _resultVMService;
-        private readonly LeagueStatsContext _dbContext;
+        private readonly IDataService _dataService;
 
-        public HomeController(ILogger<HomeController> logger, IRiotService riotService, IResultVMService resultVMService, LeagueStatsContext dbContext)
+        public HomeController(ILogger<HomeController> logger, IRiotService riotService, IResultVMService resultVMService, IDataService dataService)
         {
             _logger = logger;
             this._riotService = riotService;
             this._resultVMService = resultVMService;
-            this._dbContext = dbContext;
+            this._dataService = dataService;
         }
 
         public IActionResult Index()
@@ -34,7 +35,7 @@ namespace LeagueStats.Controllers {
         // my stuff
         public async Task<IActionResult> Result(string summonerName, bool update)
         {
-            if (_dbContext.Participants.Where(p => p.SummonerName == summonerName).Any() && update == false)
+            if (_dataService.SummonerExists(summonerName) && update == false)
             {
                 // If the user does exist in database, read user info
                 // and load viewmodel.
@@ -76,7 +77,7 @@ namespace LeagueStats.Controllers {
 
         public IActionResult ResultTest(string summonerName, bool update)
         {
-            if (_dbContext.Participants.Where(p => p.SummonerName == summonerName).Any() && update == false)
+            if (_dataService.SummonerExists(summonerName) && update == false)
             {
                 // If the user does exist in database, read user info
                 // and load viewmodel.
