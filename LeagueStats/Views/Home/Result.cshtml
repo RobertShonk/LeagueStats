@@ -42,6 +42,15 @@
                 <td>Winrate: @Model.WinRate%</td>
                 <td></td>
             </tr>
+            <tr>
+                <td>
+                    <form action="/Home/Result" method="post">
+                        <input type="hidden" name="summonerName" value=@Model.Summoner.Name/>
+                        <input type="hidden" name="update" value=true />
+                        <input type="submit" value="Update" />
+                    </form>
+                </td>
+            </tr>
         </table>
 
         <h1>Recent 20 Matches</h1>

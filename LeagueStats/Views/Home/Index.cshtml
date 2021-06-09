@@ -8,12 +8,13 @@
     </div>
 
     <div class="col">
-        <form action="/Home/Result" method="post">
+        <form action="/Home/Result" method="get">
             <h1 class="h3 mb-3 fw-normal">Enter Summoner Name</h1>
 
             <div class="form-floating">
                 <input type="text" class="form-control" id="floatingInput" name="summonerName" placeholder="Summoner name...">
             </div>
+            <input type="hidden" name="update" value="false" />
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Search</button>
         </form>

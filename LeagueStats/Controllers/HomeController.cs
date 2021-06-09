@@ -29,8 +29,13 @@ namespace LeagueStats.Controllers {
         }
 
         // my stuff
-        public async Task<IActionResult> Result(string summonerName)
+        public async Task<IActionResult> Result(string summonerName, bool update)
         {
+            if (update)
+            {
+                return View("Update");
+            }
+
             ResultVM vm = new ResultVM();
             // -> GetSummoner -> GetLeague, GetMatchIds, GetMatches
             vm.Summoner = await _riotService.GetSummonerAsync(summonerName);
