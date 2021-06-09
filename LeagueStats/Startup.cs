@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using LeagueStats.Services;
+using LeagueStats.Data;
 
 namespace LeagueStats {
     public class Startup {
@@ -26,6 +28,10 @@ namespace LeagueStats {
             services.AddHttpClient();
             services.AddSingleton<IRiotService, RiotService>();
             services.AddScoped<IResultVMService, ResultVMService>();
+
+            // Database (SqlServer)
+            services.AddDbContext<LeagueStatsContext>(options =>
+                options.UseSqlServer(Configuration["LeagueStats:ConnectionString"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
