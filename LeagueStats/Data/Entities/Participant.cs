@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeagueStats.Data.Entities {
     public class Participant {
         [Key]
         public int Id { get; set; }
+        [ForeignKey("InfoId")]
+        public int InfoId { get; set; }
         public int Assists { get; set; }
         public int BaronKills { get; set; }
         public int BountyLevel { get; set; }
