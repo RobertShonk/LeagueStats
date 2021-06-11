@@ -104,6 +104,8 @@ namespace LeagueStats.Controllers {
                 vm.RankedIconUrl = "/images/ranked-emblems/Emblem_" + vm.Leagues[vm.RankedSoloDuoIndex].Tier + ".png";
                 // ^^^ ViewModel is complete ^^^
 
+                ViewBag.showContent = "true";
+
                 return View(vm);
             }
             else if (update == true)
@@ -139,7 +141,7 @@ namespace LeagueStats.Controllers {
                 }
                 // Add to database.
                 _dataService.AddMatches(matches);
-                ViewBag.showContent = true;
+                ViewBag.showContent = "true";
 
 
                 return View(vm);
@@ -148,7 +150,7 @@ namespace LeagueStats.Controllers {
             {
                 // If user doesn't exist and update is false then display
                 // basic webpage telling them to click update.
-                ViewBag.showContent = false;
+                ViewBag.showContent = "false";
                 ViewBag.summonerName = summonerName;
 
                 return View();

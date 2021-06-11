@@ -61,6 +61,8 @@ namespace LeagueStats.Data.Entities {
         public int ParticipantId { get; set; }
         public int PentaKills { get; set; }
         public Perk Perks { get; set; }
+        [ForeignKey("PerksPerkId")]
+        public int PerksPerkId { get; set; }
         public long PhysicalDamageDealt { get; set; }
         public long PhysicalDamageDealtToChampions { get; set; }
         public long PhysicalDamageTaken { get; set; }

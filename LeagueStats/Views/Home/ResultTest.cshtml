@@ -19,7 +19,7 @@
 </form>
 
 <!--Player info-->
-@if (ViewBag.showContent)
+@if (ViewBag.showContent == "true")
 {
     <div class="row">
 
@@ -51,7 +51,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <form action="/Home/Result" method="post">
+                        <form action="/Home/ResultTest" method="post">
                             <input type="hidden" name="summonerName" value=@Model.Summoner.Name />
                             <input type="hidden" name="update" value=true />
                             <input type="submit" value="Update" />
