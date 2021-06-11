@@ -16,11 +16,22 @@ namespace LeagueStats.Services {
         {
             this._ctx = ctx;
         }
+
+        // Summoner only "exists" if they have at least 20 matches to their name.
         public bool SummonerExists(string summonerName)
         {
-            var exists = _ctx.Participants.Where(p => p.SummonerName == summonerName).Any();
+            var matches = from match in _ctx.Matches
+                          join participant in _ctx.Participants on match.InfoId equals participant.InfoId
+                          where participant.SummonerName == summonerName
+                          select match;
+            var matchList = matches.ToList<Match>();
 
-            return exists;
+            if (matchList.Count() < 20)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public void AddMatches(List<Match> matches)
@@ -48,6 +59,7 @@ namespace LeagueStats.Services {
             var infos = from info in _ctx.Infos
                         join participant in _ctx.Participants on info.InfoId equals participant.InfoId
                         where participant.SummonerName == summonerName
+                        orderby info.GameCreation descending
                         select info;
             List<Info> infoList = infos.ToList<Info>();
 
