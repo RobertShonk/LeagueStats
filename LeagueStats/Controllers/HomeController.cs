@@ -118,6 +118,7 @@ namespace LeagueStats.Controllers {
 
                 if (vm.Summoner == null)
                 {
+                    ViewBag.summonerName = summonerName;
                     return View("SummonerNotFound");
                 }
                 else
@@ -142,7 +143,6 @@ namespace LeagueStats.Controllers {
                 // Add to database.
                 _dataService.AddMatches(matches);
                 ViewBag.showContent = "true";
-
 
                 return View(vm);
             }

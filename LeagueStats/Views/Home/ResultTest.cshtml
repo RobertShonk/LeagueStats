@@ -1,19 +1,11 @@
 ﻿@model LeagueStats.Models.ResultVM;
 @{
     ViewData["Title"] = "Result Page";
-
-    string profileIconUrl = "/images/profileicon/" + "683" + ".png";
-    string tempChampIconUrl = "";
-    string championIconUrl = "/images/champion/";
-
-    string[] playerChampIconUrls = new string[10];
-    string winLossClassName = "";
-
 }
 <link href="/css/result.css" rel="stylesheet" />
 
-<form action="/Home/ResultTest" method="get">
-    <input type="hidden" name="summonerName" value=@ViewBag.summonerName />
+<form action="/Home/ResultTest" method="post">
+    <input type="hidden" name="summonerName" value="@ViewBag.summonerName" />
     <input type="hidden" name="update" value=true />
     <input type="submit" value="Update" />
 </form>
@@ -21,6 +13,13 @@
 <!--Player info-->
 @if (ViewBag.showContent == "true")
 {
+    string profileIconUrl = "/images/profileicon/" + Model.Summoner.ProfileIconId + ".png";
+    string tempChampIconUrl = "";
+    string championIconUrl = "/images/champion/";
+
+    string[] playerChampIconUrls = new string[10];
+    string winLossClassName = "";
+
     <div class="row">
 
         <div class="col" id="center">
@@ -52,7 +51,7 @@
                 <tr>
                     <td>
                         <form action="/Home/ResultTest" method="post">
-                            <input type="hidden" name="summonerName" value=@Model.Summoner.Name />
+                            <input type="hidden" name="summonerName" value="@Model.Summoner.Name" />
                             <input type="hidden" name="update" value=true />
                             <input type="submit" value="Update" />
                         </form>
